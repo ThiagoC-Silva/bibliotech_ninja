@@ -25,6 +25,7 @@ def create_book(request, new_book: BookCreateSchema):
     book = Book.objects.create(**new_book.dict())
     return {'Sucess': True}
 
+
 @api.put('update_book/{book_id}/')
 def book_update(request, book_id: int, update: BookUpdateSchema ):
     book = get_object_or_404(Book, id = book_id) 
