@@ -1,3 +1,10 @@
-from ninja import NinjaAPI
+from ninja import Router
+from .schema import UserSchema
+from .models import User
 
-api = NinjaAPI()
+router = Router()
+
+
+@router.get('list/', response = UserSchema)
+def list(request):
+    return User.objects.all()
