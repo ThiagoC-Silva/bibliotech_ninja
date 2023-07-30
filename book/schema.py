@@ -12,3 +12,10 @@ class BookIdSchema(ModelSchema):
     class Config:
         model = Book
         model_fields = '__all__'
+
+
+class BookCreateSchema(ModelSchema):
+    class Config:
+        model = Book
+        model_fields = '__all__'
+        exclude = ['id']
