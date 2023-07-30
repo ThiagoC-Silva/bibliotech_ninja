@@ -23,8 +23,7 @@ def search_book(request, book_id: int):
 @api.post('new_book/')
 def create_book(request, new_book: BookCreateSchema):
     book = Book.objects.create(**new_book.dict())
-    return 'Novo livro cadastrado com sucesso!'
-
+    return {'Sucess': True}
 
 @api.put('update_book/{book_id}/')
 def book_update(request, book_id: int, update: BookUpdateSchema ):
@@ -32,7 +31,11 @@ def book_update(request, book_id: int, update: BookUpdateSchema ):
     for attr, value in update.dict().items():
         setattr(book, attr, value)
     book.save()
-    return {'sucess': True}
+    return {'Sucess': True}
 
 
-
+@api.delete('delete_book/{book_id}/')
+def book_delete(request, book_id: int):
+    book = get_object_or_404(Book, id = book_id)
+    book.delete()
+    return {'Sucess': True}
