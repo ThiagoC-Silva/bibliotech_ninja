@@ -18,4 +18,9 @@ class BookCreateSchema(ModelSchema):
     class Config:
         model = Book
         model_fields = '__all__'
-        exclude = ['id']
+    
+
+class BookUpdateSchema(ModelSchema):
+    class Config:
+        model = Book
+        model_fields = '__all__'  

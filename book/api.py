@@ -1,6 +1,6 @@
 from ninja import NinjaAPI
 from typing import List
-from .schema import BookListSchema, BookIdSchema, BookCreateSchema
+from .schema import BookListSchema, BookIdSchema, BookCreateSchema, BookUpdateSchema
 from .models import Book
 from django.shortcuts import get_object_or_404
 
@@ -24,3 +24,15 @@ def search_book(request, book_id: int):
 def create_book(request, new_book: BookCreateSchema):
     book = Book.objects.create(**new_book.dict())
     return 'Novo livro cadastrado com sucesso!'
+
+
+@api.put('update_book/{book_id}/')
+def book_update(request, book_id: int, update: BookUpdateSchema ):
+    book = get_object_or_404(Book, id = book_id) 
+    for attr, value in update.dict().items():
+        setattr(book, attr, value)
+    book.save()
+    return {'sucess': True}
+
+
+
