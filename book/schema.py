@@ -2,25 +2,18 @@ from ninja import ModelSchema
 from .models import Book
 
 
-class BookListSchema(ModelSchema):
+class BookSchema(ModelSchema):
     class Config:
         model = Book
         model_fields = '__all__'
+
+class BookCreateSchema(ModelSchema):
+    class Config:
+        model = Book
+        model_fields = ('title', 'author', 'publication_year', 'publishing_company')
 
 
 class BookIdSchema(ModelSchema):
     class Config:
         model = Book
-        model_fields = '__all__'
-
-
-class BookCreateSchema(ModelSchema):
-    class Config:
-        model = Book
-        model_fields = '__all__'
-    
-
-class BookUpdateSchema(ModelSchema):
-    class Config:
-        model = Book
-        model_fields = '__all__'  
+        model_fields = ('title', 'author', 'publication_year', 'publishing_company')
