@@ -7,4 +7,14 @@ class UserSchema(ModelSchema):
         model = User
         model_fields = '__all__'
 
+
+class UserCreateSchema(ModelSchema):
+    class Config():
+        model = User
+        model_fields = ('name', 'birth', 'cpf', 'email')
+
+class UserUpdateSchema(ModelSchema):
+    class Config():
+        model = User
+        model_fields = ('name', 'birth', 'cpf', 'email')
         

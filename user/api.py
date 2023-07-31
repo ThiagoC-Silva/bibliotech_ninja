@@ -1,5 +1,5 @@
 from ninja import Router
-from .schema import UserSchema
+from .schema import UserSchema, UserCreateSchema, UserUpdateSchema
 from .models import User
 from typing import List
 from django.shortcuts import get_object_or_404
@@ -9,18 +9,17 @@ router = Router()
 
 @router.get('user/', response = List[UserSchema])
 def list_user(request):
-    user = User.objects.all()
-    return user
+    return User.objects.all()
 
 
-@router.post('create/')
-def create_user(request, payload: UserSchema ):
+@router.post('user/')
+def create_user(request, payload: UserCreateSchema ):
     User.objects.create(**payload.dict())
     return {'Sucess': True}
 
 
-@router.put('update/{user_id}/')
-def update_user(request, user_id: int, payload: UserSchema):
+@router.put('user/{user_id}/')
+def update_user(request, user_id: int, payload: UserUpdateSchema):
     user = get_object_or_404(User, id = user_id)
     for attr, value in payload.dict().items():
         setattr(user, attr, value)
@@ -28,7 +27,7 @@ def update_user(request, user_id: int, payload: UserSchema):
     return {'Sucess': True}
 
 
-@router.delete('{user_id}/')
+@router.delete('user/{user_id}/')
 def delete_user(request, user_id: int):
     user = get_object_or_404(User, id = user_id)
     user.delete()
